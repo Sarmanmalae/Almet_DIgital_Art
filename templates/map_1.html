@@ -1,0 +1,19 @@
+{% extends "base_map.html" %}
+
+{% block content %}
+<br>
+<a href="#" class="btn btn-success" style="background-color:transparent; border-width:2px"><img
+        src="static/img/map_1_shops.jpg" alt="..." style="width: 1269px; height: 600px;"></a>
+<br>
+<br>
+<a class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+   data-bs-custom-class="custom-tooltip"
+   title="Кофе, маффины" href="/set_id/{{ 1 }}" style="color:#c9f2c9">Перейти в магазин</a>
+<a class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="top"
+   data-bs-custom-class="custom-tooltip"
+   title="Шашлык куриный, компот, чай" href="/set_id/{{ 2 }}"
+   style="color:#c9f2c9, background-color:#ffa500">Перейти в магазин</a>
+<a class="btn btn-light" href="/">Вернуться обратно</a>
+<br>
+<br>
+{% endblock %}

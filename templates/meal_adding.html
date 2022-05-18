@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Добавление в меню</h1>
+<form action="" method="post" style="color: #e3f2fd; font-size: 20px; font-family: Felix Titling;">
+    {{ form.hidden_tag() }}
+    <p style="color: #e3f2fd; font-size: 20px; font-family: Felix Titling;">
+        {{ form.name.label }}<br>
+        {{ form.name(class="form-control") }}<br>
+        {% for error in form.name.errors %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+    <p style="color: #e3f2fd; font-size: 20px; font-family: Felix Titling;">
+        {{ form.price.label }}<br>
+        {{ form.price(class="form-control") }}<br>
+        {% for error in form.price.errors %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+    <p style="color: #e3f2fd; font-size: 20px; font-family: Felix Titling;">
+        {{ form.category.label }}<br>
+        {{ form.category(class="form-control") }}<br>
+        {% for error in form.category.errors %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+    <p style="color: #e3f2fd; font-size: 20px; font-family: Felix Titling;">
+        {{ form.pic.label }}<br>
+        {{ form.pic(class="form-control") }}<br>
+        {% for error in form.pic.errors %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+    <p style="color: #e3f2fd; font-size: 20px; font-family: Felix Titling;">{{ form.in_stock() }} {{ form.in_stock
+        .label }}</p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    <p>{{message}}</p>
+</form>
+{% endblock %}

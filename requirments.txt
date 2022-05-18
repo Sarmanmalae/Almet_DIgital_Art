@@ -1,0 +1,7 @@
+SQLAlchemy~=1.4.31
+Werkzeug~=2.0.3
+WTForms~=3.0.1
+Flask~=2.0.3
+flask_login~=0.5.0
+Flask-WTF~=1.0.0
+aiogram~=2.19
