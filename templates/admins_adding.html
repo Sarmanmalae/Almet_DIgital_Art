@@ -13,10 +13,10 @@
 <body background="static/img/bg.jpg">
 <br>
 <main role="main" class="container">
-<h1 style="color: #e3f2fd;">Регистрация админов</h1>
-<form action="" method="post" style="color: #e3f2fd; font-size: 20px;">
+<h1 style="color: #ffffff;">Регистрация админов</h1>
+<form action="" method="post" style="color: #ffffff; font-size: 20px;">
     {{ form.hidden_tag() }}
-    <p style="color: #e3f2fd; font-size: 20px;">
+    <p style="color: #ffffff; font-size: 20px;">
         {{ form.name.label }}<br>
         {{ form.name(class="form-control") }}<br>
         {% for error in form.name.errors %}
@@ -25,7 +25,7 @@
     </p>
     {% endfor %}
     </p>
-    <p style="color: #e3f2fd; font-size: 20px;">
+    <p style="color: #ffffff; font-size: 20px;">
         {{ form.number.label }}<br>
         {{ form.number(class="form-control") }}<br>
         {% for error in form.number.errors %}
@@ -34,7 +34,16 @@
     </p>
     {% endfor %}
     </p>
-    <p style="color: #e3f2fd; font-size: 20px;">
+    <p style="color: #ffffff; font-size: 20px;">
+        {{ form.owner.label }}<br>
+        {{ form.owner(class="form-control") }}<br>
+        {% for error in form.owner.errors %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+    <p style="color: #ffffff; font-size: 20px;">
         {{ form.password.label }}<br>
         {{ form.password(class="form-control", type="password") }}<br>
         {% for error in form.password.errors %}
@@ -43,7 +52,7 @@
     </p>
     {% endfor %}
     </p>
-    <p style="color: #e3f2fd; font-size: 20px;">
+    <p style="color: #ffffff; font-size: 20px;">
         {{ form.password_again.label }}<br>
         {{ form.password_again(class="form-control", type="password") }}<br>
         {% for error in form.password_again.errors %}
@@ -52,7 +61,9 @@
     </p>
     {% endfor %}
     </p>
+    {% if current_user.admin %}
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {% endif %}
     {{message}}
 </form>
 </main>

@@ -15,6 +15,7 @@ class Users(SqlAlchemyBase, UserMixin):
     basket = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String)
     admin = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
+    owner = sqlalchemy.Column(sqlalchemy.Integer, default=0)
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)

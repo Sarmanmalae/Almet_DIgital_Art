@@ -13,10 +13,10 @@
 <body background="static/img/bg.jpg">
 <br>
 <main role="main" class="container">
-    <h1 style="color: #e3f2fd;">Добавление магазинов</h1>
+    <h1 style="color: #ffffff;">Добавление магазинов</h1>
     <form action="" method="post">
         {{ form.hidden_tag() }}
-        <p style="color: #e3f2fd; font-size: 20px;">
+        <p style="color: #ffffff; font-size: 20px;">
             {{ form.name.label }}<br>
             {{ form.name(class="form-control") }}<br>
             {% for error in form.name.errors %}
@@ -25,16 +25,16 @@
         </p>
         {% endfor %}
         </p>
-        <p style="color: #e3f2fd; font-size: 20px;">
+        <p style="color: #ffffff; font-size: 20px;">
             {{ form.tg_name.label }}<br>
-            {{ form.tg_name(class="form-control", placeholder = '@example') }}<br>
+            {{ form.tg_name(class="form-control", placeholder = 'example: -1234567890123 (можно узнать с помощью бота @username_to_id_bot') }}<br>
             {% for error in form.tg_name.errors %}
         <p class="alert alert-danger" role="alert">
             {{ error }}
         </p>
         {% endfor %}
         </p>
-        <p style="color: #e3f2fd; font-size: 20px;">
+        <p style="color: #ffffff; font-size: 20px;">
             {{ form.specific_gps.label }}<br>
             {{ form.specific_gps(class="form-control") }}<br>
             {% for error in form.specific_gps.errors %}
@@ -43,7 +43,7 @@
         </p>
         {% endfor %}
         </p>
-        <p style="color: #e3f2fd; font-size: 20px;">
+        <p style="color: #ffffff; font-size: 20px;">
             {{ form.which_map.label }}<br>
             {{ form.which_map(class="form-control", placeholder = 'от 1 до 4(включительно)') }}<br>
             {% for error in form.which_map.errors %}
@@ -52,7 +52,7 @@
         </p>
         {% endfor %}
         </p>
-        <p style="color: #e3f2fd; font-size: 20px;">
+        <p style="color: #ffffff; font-size: 20px;">
             {{ form.color.label }}<br>
             {{ form.color(class="form-control form-control-color", id="exampleColorInput", value="#563d7c",
             type="color", title="Choose your color") }}<br>
@@ -62,8 +62,8 @@
         </p>
         {% endfor %}
         </p>
-        <p style="color: #e3f2fd; font-size: 20px;">{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-        <p style="color: #e3f2fd; font-size: 20px;">{{message}}</p>
+        <p style="color: #ffffff; font-size: 20px;">{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        <p style="color: #ffffff; font-size: 20px;">{{message}}</p>
     </form>
 </main>
 <br>

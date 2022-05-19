@@ -32,12 +32,7 @@ a {
     align: center;
     text-align: center;
 }
-body {
-    -moz-background-size: 100%; /* Firefox 3.6+ */
-    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
-    -o-background-size: 100%; /* Opera 9.6+ */
-    background-size: cover; /* Современные браузеры */
-}
-/* body {  background: linear-gradient(45deg, #EECFBA, #C5DDE8) no-repeat center center fixed;
+
+body {  background: linear-gradient(45deg, #EECFBA, #C5DDE8) no-repeat center center fixed;
         background-size: cover;
-} */
+}

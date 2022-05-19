@@ -1,53 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a href="/add_meal" class="btn btn-primary">Добавить</a>
+<a href="/add_meal" class="btn btn-warning">Добавить</a>
 <br>
-<h2 style="color: #e3f2fd; font-size: 24px; font-family: Felix Titling">Напитки</h2>
-{% for j in range(len_dr) %}
-<div class="container">
-  <div class="row">
-    {% for i in drinks[j] %}
+<br>
+{% for j in all_meals %}
+<h2 style="color: #ffffff; font-size: 24px;">{{ j }}</h2>
+{% for c in range(all_meals[j][1]) %}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for i in all_meals[j][0][c] %}
     <div class="col">
-      <div class="card" style="width: 18rem; height: 18 rem;">
-        <div class="card-body">
-          <img src="static/img/{{ i[2] }}" class="card-img-top" alt="..." style="width: 15.8rem; height: 10rem;">
-          <br>
-          <br>
-          <h5 class="card-title">{{ i[0] }}</h5>
-          <a href="/delete_meal/{{ i[-1] }}" class="btn btn-primary">Удалить</a>
-          <a style="color: #000000">{{ i[1] }}руб.</a>
+        <div class="card" style="width: 18rem; height: 18 rem;">
+            <div class="card-body">
+                {% if i[2] %}
+                <img src="static/img/{{ i[2] }}" class="card-img-top" alt="..." style="width: 15.8rem; height: 10rem;">
+                <br>
+                {% endif %}
+                <br>
+                <h5 class="card-title" style="padding-bottom: 10px">{{ i[0] }}</h5>
+                <a href="/delete_meal/{{ i[-1] }}" class="btn btn-danger">Удалить</a>
+                <a style="color: #000000">{{ i[1] }}руб.</a>
+            </div>
         </div>
-      </div>
     </div>
-  {% endfor %}
-  </div>
+    {% endfor %}
 </div>
 <br>
 {% endfor %}
-
-<br>
-
-<h2 style="color: #e3f2fd; font-size: 24px; font-family: Felix Titling">Дессерты</h2>
-{% for j in range(len_ds) %}
-<div class="container">
-  <div class="row">
-    {% for i in desserts[j] %}
-    <div class="col">
-      <div class="card" style="width: 18rem; height: 18rem;">
-        <div class="card-body">
-          <img src="static/img/{{ i[2] }}" class="card-img-top" alt="..." style="width: 15.8rem; height: 10rem;">
-          <br>
-          <br>
-          <h5 class="card-title">{{ i[0] }}</h5>
-          <a href="/delete_meal/{{ i[-1] }}" class="btn btn-primary">Удалить</a>
-          <a style="color: #000000">{{ i[1] }}руб.</a>
-        </div>
-      </div>
-    </div>
-  {% endfor %}
-  </div>
-</div>
-<br>
 {% endfor %}
 {% endblock %}

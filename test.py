@@ -1,3 +1,1 @@
-from tg_bot import send_mess
-
-send_mess()
+print(len('1'))

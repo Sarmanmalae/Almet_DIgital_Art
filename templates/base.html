@@ -41,8 +41,13 @@
                 <a class="nav-link" href="/logout">Выйти из аккаунта</a>
             </li>
             {% elif current_user.is_authenticated and current_user.admin == 1 %}
+            {% if shop_id == current_user.owner %}
             <li class="nav-item">
                 <a class="nav-link" href="/change_menu">Изменить меню</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="/menu">Меню</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Выйти из аккаунта</a>

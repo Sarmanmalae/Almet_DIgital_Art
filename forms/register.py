@@ -8,4 +8,5 @@ class RegisterForm(FlaskForm):
     number = IntegerField('Номер, пример: 89123456789', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     password_again = PasswordField('Повторите пароль', validators=[DataRequired()])
+    owner = IntegerField('Владелец магазина(id магазина)')
     submit = SubmitField('Зарегестрироваться')

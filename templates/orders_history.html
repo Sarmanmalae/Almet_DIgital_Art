@@ -1,17 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% if not orders %}
+<a style="color: #ffffff; font-size: 43px">Заказов пока не было, но вы можете это исправить😉</a>
+{% endif %}
 {% for i in orders %}
 <br>
 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-    <div class="col p-4 d-flex flex-column position-static">
+    <div class="col p-4 d-flex flex-column position-static" style="border: 3px solid white;">
       <h3 class="mb-0">Заказ №{{i[0]}}</h3>
-      <div class="mb-1 text-muted" style="color: #e3f2fd; font-family: Felix Titling">{{i[2]}}</div>
+      <div class="mb-1 text-muted" style="color: #ffffff;">{{i[2]}}</div>
       <p class="card-text mb-auto">Содержание заказа: {{', '.join(i[1])}}</p>
-      {% if i[3] %}
-        <p>Ваш заказ готов</p>
-      {% else %}
-        <p>Ваш заказ не готов</p>
+      {% if i[3] == 2 %}
+        <p>Ваш заказ готов✅</p>
+      {% elif i[3] == 1 %}
+        <p>Ваш заказ готовится🕑</p>
       {% endif %}
       <div class="container">
       <div class="row" style="width: 320px;">
