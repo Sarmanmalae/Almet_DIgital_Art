@@ -65,7 +65,8 @@ def main_page():
     gps = db_sess.query(Shops).filter(Shops.id == db_sess.query(ShopNow).first().shop_id).first().specific_gps
     n = db_sess.query(ShopNow).first().shop_id
     shop_name = db_sess.query(Shops).filter(Shops.id == n).first().name
-    return render_template('index.html', gps="/static/img/" + gps, shop_id=db_sess.query(ShopNow).filter(ShopNow.id == n).first().shop_id, shop_name=shop_name)
+    return render_template('index.html', gps="/static/img/" + gps,
+                           shop_id=db_sess.query(ShopNow).filter(ShopNow.id == n).first().shop_id, shop_name=shop_name)
 
 
 @app.route('/')
@@ -162,7 +163,6 @@ def add_shops():
             return render_template('shops_adding.html', title='Добавление магазинов',
                                    form=form,
                                    message="Неверно указана карта")
-        print(form.color.data)
         shop = Shops(
             name=form.name.data,
             tg_name=form.tg_name.data,
@@ -214,7 +214,8 @@ def menu():
         all_meals[i] = [dr, len(dr)]
     n = db_sess.query(ShopNow).first().shop_id
     shop_name = db_sess.query(Shops).filter(Shops.id == n).first().name
-    return render_template('menu.html', all_meals=all_meals, shop_name=shop_name, shop_id=db_sess.query(ShopNow).filter(ShopNow.id == n).first().shop_id)
+    return render_template('menu.html', all_meals=all_meals, shop_name=shop_name,
+                           shop_id=db_sess.query(ShopNow).filter(ShopNow.id == n).first().shop_id)
 
 
 @app.route('/admins_adding_cafe', methods=['GET', 'POST'])
@@ -334,13 +335,16 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
+        n = db_sess.query(ShopNow).first().shop_id
+        shop_name = db_sess.query(Shops).filter(Shops.id == n).first().name
         user = db_sess.query(Users).filter(Users.number == form.number.data).first()
+        if len(str(form.number.data)) != 11 or not str(form.number.data).isdigit():
+            return render_template('login.html',
+                                   message="Неправильный формат номера",
+                                   form=form, shop_name=shop_name)
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             return redirect("/menu")
-        db_sess = db_session.create_session()
-        n = db_sess.query(ShopNow).first().shop_id
-        shop_name = db_sess.query(Shops).filter(Shops.id == n).first().name
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form, shop_name=shop_name)
@@ -354,7 +358,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect("/")
+    return redirect("/menu")
 
 
 @app.route('/reorder/<int:id>', methods=['GET', 'POST'])
@@ -401,7 +405,8 @@ def to_order():
             price.append(db_sess.query(Meals).filter(Meals.id == i).first().price)
         order.itog_price = sum(price)
         order.shop_id = db_sess.query(ShopNow).first().shop_id
-        order.shop_order_num = len(db_sess.query(Orders).filter(Orders.shop_id == db_sess.query(ShopNow).first().shop_id).all()) + 1
+        order.shop_order_num = len(
+            db_sess.query(Orders).filter(Orders.shop_id == db_sess.query(ShopNow).first().shop_id).all()) + 1
         db_sess.add(order)
         user.basket = None
         order_details['id'] = order.id
@@ -453,7 +458,8 @@ def change_menu():
         all_meals[i] = [dr, len(dr)]
     n = db_sess.query(ShopNow).first().shop_id
     shop_name = db_sess.query(Shops).filter(Shops.id == n).first().name
-    return render_template('change_menu.html', all_meals=all_meals, shop_name=shop_name, shop_id=db_sess.query(ShopNow).filter(ShopNow.id == n).first().shop_id)
+    return render_template('change_menu.html', all_meals=all_meals, shop_name=shop_name,
+                           shop_id=db_sess.query(ShopNow).filter(ShopNow.id == n).first().shop_id)
 
 
 @app.route('/delete_meal/<int:num>', methods=['GET', 'POST'])
@@ -474,18 +480,24 @@ def add_meal():
         db_sess = db_session.create_session()
         if db_sess.query(Meals).filter(Meals.name == form.name.data).first():
             return render_template('meal_adding.html', title='Регистрация', form=form,
-                                   message="Такой пункт уже есть в меню", shop_name=shop_name)
+                                   message="Такой пункт уже есть в меню", shop_name=shop_name,
+                                   shop_id=db_sess.query(ShopNow).filter(ShopNow.id == n).first().shop_id)
         meal = Meals()
         meal.name = form.name.data
         meal.price = form.price.data
         meal.category = form.category.data
         meal.in_stock = form.in_stock.data
-        meal.pic = form.pic.data
+        meal.shop_id = db_sess.query(ShopNow).first().shop_id
+        a = form.pic.data
+        with open(f'static/img/{a.filename}', 'wb') as f:
+            f.write(a.read())
+        meal.pic = a.filename
         db_sess.add(meal)
         db_sess.commit()
         return redirect('/')
     n = db_sess.query(ShopNow).first().shop_id
-    return render_template('meal_adding.html', title='Регистрация', form=form, shop_name=shop_name, shop_id=db_sess.query(ShopNow).filter(ShopNow.id == n).first().shop_id)
+    return render_template('meal_adding.html', title='Регистрация', form=form, shop_name=shop_name,
+                           shop_id=db_sess.query(ShopNow).filter(ShopNow.id == n).first().shop_id)
 
 
 if __name__ == '__main__':

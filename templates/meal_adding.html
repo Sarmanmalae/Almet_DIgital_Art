@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Добавление в меню</h1>
-<form action="" method="post" style="color: #ffffff; font-size: 20px; font-family: Felix Titling;">
+<h1 style="color: #ffffff; font-size: 43px">Добавление в меню</h1>
+<form action="" method="post" style="color: #ffffff; font-size: 20px;" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
-    <p style="color: #ffffff; font-size: 20px; font-family: Felix Titling;">
+    <p style="color: #ffffff; font-size: 20px;">
         {{ form.name.label }}<br>
         {{ form.name(class="form-control") }}<br>
         {% for error in form.name.errors %}
@@ -13,7 +13,7 @@
     </p>
     {% endfor %}
     </p>
-    <p style="color: #ffffff; font-size: 20px; font-family: Felix Titling;">
+    <p style="color: #ffffff; font-size: 20px;">
         {{ form.price.label }}<br>
         {{ form.price(class="form-control") }}<br>
         {% for error in form.price.errors %}
@@ -22,7 +22,7 @@
     </p>
     {% endfor %}
     </p>
-    <p style="color: #ffffff; font-size: 20px; font-family: Felix Titling;">
+    <p style="color: #ffffff; font-size: 20px;">
         {{ form.category.label }}<br>
         {{ form.category(class="form-control") }}<br>
         {% for error in form.category.errors %}
@@ -31,7 +31,7 @@
     </p>
     {% endfor %}
     </p>
-    <p style="color: #ffffff; font-size: 20px; font-family: Felix Titling;">
+    <p style="color: #ffffff; font-size: 20px;">
         {{ form.pic.label }}<br>
         {{ form.pic(class="form-control") }}<br>
         {% for error in form.pic.errors %}
@@ -40,9 +40,11 @@
     </p>
     {% endfor %}
     </p>
-    <p style="color: #ffffff; font-size: 20px; font-family: Felix Titling;">{{ form.in_stock() }} {{ form.in_stock
+    <p style="color: #ffffff; font-size: 20px;">{{ form.in_stock() }} {{ form.in_stock
         .label }}</p>
+    {% if current_user.is_authenticated and current_user.owner == shop_id %}
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {% endif %}
     <p>{{message}}</p>
 </form>
 {% endblock %}

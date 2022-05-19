@@ -61,7 +61,7 @@
     </p>
     {% endfor %}
     </p>
-    {% if current_user.admin %}
+    {% if current_user.is_authenticated and current_user.admin and current_user.owner == 0 %}
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {% endif %}
     {{message}}

@@ -6,7 +6,7 @@
         {{ form.hidden_tag() }}
         <p style="color: #ffffff; font-size: 20px;">
             {{ form.number.label }}<br>
-            {{ form.number(class="form-control") }}<br>
+            {{ form.number(class="form-control", placeholder='пример: 89123456789') }}<br>
             {% for error in form.number.errors %}
                 <div class="alert alert-danger" role="alert">
                     {{ error }}
