@@ -14,6 +14,7 @@ from data.shop_now import ShopNow
 from data.users import Users
 from forms.login import LoginForm
 from forms.register import RegisterForm
+from forms.shops_adding import ShopsAddingForm
 from forms.meal_adding import MealAddingForm
 
 app = Flask(__name__)
@@ -72,22 +73,105 @@ def map():
 
 @app.route('/map_1')
 def map_1():
-    return render_template('map_1.html')
+    db_sess = db_session.create_session()
+    a = [i for i in db_sess.query(Shops).filter(Shops.which_map == 1).all()]
+    color_id = []
+    for i in a:
+        text = ''.join([i.name for i in db_sess.query(Meals).filter(Meals.shop_id == i.id).all()])
+        color_id.append(
+            [i.color, i.id, 'Товаров пока нет' if not text else text])
+    cols = 5
+    n = math.ceil(len(color_id) / cols)
+    dr = [[] for _ in range(n)]
+    for j in range(n):
+        for k in range(5):
+            if color_id:
+                dr[j].append(color_id.pop(0))
+    return render_template('map_1.html', color_id=dr)
 
 
 @app.route('/map_2')
 def map_2():
-    return render_template('map_2.html')
+    db_sess = db_session.create_session()
+    a = [i for i in db_sess.query(Shops).filter(Shops.which_map == 2).all()]
+    color_id = []
+    for i in a:
+        text = ''.join([i.name for i in db_sess.query(Meals).filter(Meals.shop_id == i.id).all()])
+        color_id.append(
+            [i.color, i.id, 'Товаров пока нет' if not text else text])
+    cols = 5
+    n = math.ceil(len(color_id) / cols)
+    dr = [[] for _ in range(n)]
+    for j in range(n):
+        for k in range(5):
+            if color_id:
+                dr[j].append(color_id.pop(0))
+    return render_template('map_2.html', color_id=dr)
 
 
 @app.route('/map_3')
 def map_3():
-    return render_template('map_3.html')
+    db_sess = db_session.create_session()
+    a = [i for i in db_sess.query(Shops).filter(Shops.which_map == 3).all()]
+    color_id = []
+    for i in a:
+        text = ''.join([i.name for i in db_sess.query(Meals).filter(Meals.shop_id == i.id).all()])
+        color_id.append(
+            [i.color, i.id, 'Товаров пока нет' if not text else text])
+    cols = 5
+    n = math.ceil(len(color_id) / cols)
+    dr = [[] for _ in range(n)]
+    for j in range(n):
+        for k in range(5):
+            if color_id:
+                dr[j].append(color_id.pop(0))
+    return render_template('map_3.html', color_id=dr)
 
 
 @app.route('/map_4')
 def map_4():
-    return render_template('map_4.html')
+    db_sess = db_session.create_session()
+    a = [i for i in db_sess.query(Shops).filter(Shops.which_map == 4).all()]
+    color_id = []
+    for i in a:
+        text = ', '.join([i.name for i in db_sess.query(Meals).filter(Meals.shop_id == i.id).all()])
+        color_id.append(
+            [i.color, i.id, 'Товаров пока нет' if not text else text])
+    cols = 5
+    n = math.ceil(len(color_id) / cols)
+    dr = [[] for _ in range(n)]
+    for j in range(n):
+        for k in range(5):
+            if color_id:
+                dr[j].append(color_id.pop(0))
+    return render_template('map_4.html', color_id=dr)
+
+
+@app.route('/shops_adding', methods=['GET', 'POST'])
+def add_shops():
+    form = ShopsAddingForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        if db_sess.query(Shops).filter(Shops.tg_name == form.tg_name.data).first():
+            return render_template('shops_adding.html', title='Добавление магазинов',
+                                   form=form,
+                                   message="Такой магазин уже есть")
+        if not (form.which_map.data in [1, 2, 3, 4]):
+            return render_template('shops_adding.html', title='Добавление магазинов',
+                                   form=form,
+                                   message="Неверно указана карта")
+        print(form.color.data)
+        shop = Shops(
+            name=form.name.data,
+            tg_name=form.tg_name.data,
+            specific_gps=form.specific_gps.data,
+            which_map=form.which_map.data,
+            color=form.color.data
+        )
+        db_sess.add(shop)
+        db_sess.commit()
+        return redirect('/')
+    return render_template('shops_adding.html', title='Добавление магазина', form=form)
 
 
 @app.route('/set_id/<int:shop_id>', methods=['GET', 'POST'])
@@ -112,7 +196,8 @@ def menu():
     all_meals = {}
     for i in sorted(list(set(a)), reverse=True):
         a = []
-        for m in db_sess.query(Meals).filter(Meals.category == i and Meals.shop_id == db_sess.query(ShopNow).first().shop_id):
+        for m in db_sess.query(Meals).filter(
+                Meals.category == i and Meals.shop_id == db_sess.query(ShopNow).first().shop_id):
             a.append([m.name, m.price, m.pic, m.in_stock, basket_user.count(m.id), m.id])
         all_meals[i] = a
     cols = 3
@@ -369,7 +454,8 @@ def change_menu():
     db_sess = db_session.create_session()
     n = db_sess.query(ShopNow).first().shop_id
     shop_name = db_sess.query(Shops).filter(Shops.id == n).first().name
-    return render_template('change_menu.html', drinks=dr, desserts=ds, len_ds=len(ds), len_dr=len(dr), shop_name=shop_name)
+    return render_template('change_menu.html', drinks=dr, desserts=ds, len_ds=len(ds), len_dr=len(dr),
+                           shop_name=shop_name)
 
 
 @app.route('/delete_meal/<int:num>', methods=['GET', 'POST'])

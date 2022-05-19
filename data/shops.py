@@ -10,4 +10,6 @@ class Shops(SqlAlchemyBase):
                            primary_key=True, autoincrement=True)
     name = sqlalchemy.Column(sqlalchemy.String)
     tg_name = sqlalchemy.Column(sqlalchemy.String)
-    gps = sqlalchemy.Column(sqlalchemy.String)
+    specific_gps = sqlalchemy.Column(sqlalchemy.String)
+    which_map = sqlalchemy.Column(sqlalchemy.Integer)
+    color = sqlalchemy.Column(sqlalchemy.String)

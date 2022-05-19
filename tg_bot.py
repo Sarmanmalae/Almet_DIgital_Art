@@ -10,7 +10,7 @@ from flask import request
 from flask_restful import Resource
 from requests import get, put, post
 
-API_TOKEN = '5296851474:AAHC3L5vJ_IF7kRNWqTpp5_qwyRoZdV-0xE'
+API_TOKEN = '5305383108:AAFZkZajF_hA03HshrF5-mPnkyTY77caui0'
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -50,6 +50,18 @@ async def send_random_value(call: types.CallbackQuery):
     await bot.send_message(-1001506674517,
                            f'Номер заказа: 2\nИмя клиента: Кирилл\nСодержание заказа:\nЭспрессо(1шт.)\nКруассаны(3шт.)',
                            reply_markup=keyboard2)
+
+
+def send_mess():
+    API_TOKEN = '5305383108:AAFZkZajF_hA03HshrF5-mPnkyTY77caui0'
+
+    # Configure logging
+    logging.basicConfig(level=logging.INFO)
+
+    # Initialize bot and dispatcher
+    bot = Bot(token=API_TOKEN)
+    dp = Dispatcher(bot)
+    bot.send_message(-1001650800039, 'Через другой файл!')
 
 
 if __name__ == '__main__':

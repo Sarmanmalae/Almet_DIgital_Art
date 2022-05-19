@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% if not all_meals %}
+<a style="color: #ffffff; font-size: 43px">В меню пока пусто😞</a>
+{% else %}
 <a style="color: #ffffff; font-size: 43px">Меню</a>
 <a href="/order" class="btn btn-warning" style="margin-left: 20px; margin-bottom: 20px">
     Заказать
@@ -61,4 +64,5 @@
     </div>
   </div>
 </div>
+{% endif %}
 {% endblock %}

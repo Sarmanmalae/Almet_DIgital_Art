@@ -6,13 +6,19 @@
         src="static/img/map_1_shops.jpg" alt="..." style="width: 1269px; height: 600px;"></a>
 <br>
 <br>
-<a class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+{% for j in color_id %}
+<div class="row row-cols-1 row-cols-md-5 g-4">
+    {% for c in j %}
+    <div class="col">
+    <a class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="top"
    data-bs-custom-class="custom-tooltip"
-   title="Кофе, маффины" href="/set_id/{{ 1 }}" style="color:#c9f2c9">Перейти в магазин</a>
-<a class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="top"
-   data-bs-custom-class="custom-tooltip"
-   title="Шашлык куриный, компот, чай" href="/set_id/{{ 2 }}"
-   style="color:#c9f2c9, background-color:#ffa500">Перейти в магазин</a>
+   title="{{ c[2] }}" href="/set_id/{{ c[1] }}"
+   style="background-color:{{ c[0] }}; widht: 100px; height: 40px; width">Перейти в магазин</a>
+    </div>
+    {% endfor %}
+</div>
+<br>
+{% endfor %}
 <a class="btn btn-light" href="/">Вернуться обратно</a>
 <br>
 <br>
