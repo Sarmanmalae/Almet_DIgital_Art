@@ -38,4 +38,6 @@ body {
     -o-background-size: 100%; /* Opera 9.6+ */
     background-size: cover; /* Современные браузеры */
 }
-/* Created with https://www.css-gradient.com */
+/* body {  background: linear-gradient(45deg, #EECFBA, #C5DDE8) no-repeat center center fixed;
+        background-size: cover;
+} */
