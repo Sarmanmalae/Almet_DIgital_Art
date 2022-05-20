@@ -28,26 +28,6 @@ login_manager.init_app(app)
 ORDER = []
 
 
-# todos = {}
-#
-#
-# class TodoSimple(Resource):
-#     def get(self, todo_id):
-#         return {todo_id: todos[todo_id]}
-#
-#     def put(self, todo_id):
-#         todos[todo_id] = request.form['data']
-#         print(todos)
-#         db_sess = db_session.create_session()
-#         m = db_sess.query(Orders).filter(Orders.id == int(todos['todo1'])).first()
-#         m.is_ready = True
-#         db_sess.commit()
-#         return {todo_id: todos[todo_id]}
-#
-#
-# api.add_resource(TodoSimple, '/<string:todo_id>')
-
-
 def main():
     db_session.global_init("db/sabantuy.db")
     app.run()
@@ -66,7 +46,7 @@ def main_page():
     n = db_sess.query(ShopNow).first().shop_id
     shop_name = db_sess.query(Shops).filter(Shops.id == n).first().name
     return render_template('index.html', gps="/static/img/" + gps,
-                           shop_id=db_sess.query(ShopNow).filter(ShopNow.id == n).first().shop_id, shop_name=shop_name)
+                           shop_id=db_sess.query(ShopNow).filter(ShopNow.shop_id == n).first().shop_id, shop_name=shop_name)
 
 
 @app.route('/')
@@ -215,7 +195,7 @@ def menu():
     n = db_sess.query(ShopNow).first().shop_id
     shop_name = db_sess.query(Shops).filter(Shops.id == n).first().name
     return render_template('menu.html', all_meals=all_meals, shop_name=shop_name,
-                           shop_id=db_sess.query(ShopNow).filter(ShopNow.id == n).first().shop_id)
+                           shop_id=db_sess.query(ShopNow).filter(ShopNow.shop_id == n).first().shop_id)
 
 
 @app.route('/admins_adding_cafe', methods=['GET', 'POST'])
@@ -358,7 +338,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect("/menu")
+    return redirect("/")
 
 
 @app.route('/reorder/<int:id>', methods=['GET', 'POST'])
